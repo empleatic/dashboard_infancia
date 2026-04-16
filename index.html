@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>AMAIA - Gobernación del Tolima (Secretaría de Salud)</title>
+    <link rel="icon" type="image/png" href="https://storage.googleapis.com/gdt-icons/Amaia%2001.png">
+
+    <!-- Fuentes: Montserrat (Títulos/Branding) e Inter (UI/Texto) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Iconos Phosphor (Modernos y ligeros) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Enlace a la hoja de estilos personalizada -->
+    <link rel="stylesheet" href="style.css?v=1.1">
+    <!-- 
+        Estilos y Script de Dialogflow Messenger 
+        Se importan directamente de los servidores de Google.
+        Esta versión (v1) permite la integración del chat flotante.
+    -->
+    <link rel="stylesheet"
+        href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
+    <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
+</head>
+
+<body>
+    <!-- 1. Encabezado Oficial -->
+    <header class="app-header">
+        <div class="branding">
+            <!--Escudo de la Gobernación del tolima-->
+            <img src="https://storage.googleapis.com/gdt-icons/Gobernaci%C3%B3n%20del%20Tolima%20Icon.png"
+                alt="Escudo Gobernación del Tolima" class="escudo-img">
+            <div class="titles">
+                <span class="main-title">TOLIMA RESUELVE DIGITAL - Secretaría de Salud</span>
+                <span class="sub-title">Sistema Inteligente de Consultas de Datos</span>
+            </div>
+        </div>
+
+        <div class="header-info">
+            <div class="system-status">
+                <div class="status-indicator"></div>
+                <span>En Línea</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. Contenido Principal -->
+    <main class="main-layout">
+
+        <!-- Panel Izquierdo: Dashboard -->
+        <section class="dashboard-panel">
+            <div class="dashboard-loader">
+                <div class="spinner"></div>
+                <p style="font-size: 0.9rem; font-weight: 500;">Cargando Dashboard...</p>
+            </div>
+
+            <iframe
+                src="https://lookerstudio.google.com/embed/reporting/8b2d3203-1600-4c37-b64f-0b2e0c991942/page/p_vr9nwtkyyd" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+            </iframe>
+        </section>
+
+        <!-- Panel Derecho: Amaia -->
+        <aside class="chat-panel">
+            <div class="chat-card">
+
+                <!-- Header Personalizado del Chat -->
+                <div class="chat-header">
+                    <div class="assistant-profile">
+                        <div class="avatar-circle">
+                            <img src="https://storage.googleapis.com/gdt-icons/Amaia%2001.png" alt="AMAIA Avatar"
+                                width="60" height="60">
+                        </div>
+                        <div class="assistant-details">
+                            <h2>AMAIA</h2>
+                            <span>Asistente Virtual</span>
+                        </div>
+                    </div>
+
+                    <button class="btn-reset" id="btn-reset" title="Reiniciar Conversación">
+                        <i class="ph-bold ph-arrow-counter-clockwise"></i>
+                    </button>
+                </div>
+
+                <!-- Contenido del Chat -->
+                <div class="messenger-wrapper">
+                    <df-messenger location="us-central1" project-id="co-tol-prd"
+                        agent-id="f83029ac-067a-4a64-a8f3-abf4566df50f" allow-feedback="all" language-code="es"
+                        max-query-length="-1" expand="true" intent="Hola">
+                        <df-messenger-chat chat-title="AMAIA" bot-writing-text="Escribiendo..."
+                            placeholder-text="Tu consulta...">
+                        </df-messenger-chat>
+                    </df-messenger>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Script principal de la aplicación -->
+    <script src="main.js?v=1.1"></script>
+</body>
+
+</html>

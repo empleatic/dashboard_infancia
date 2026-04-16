@@ -1,0 +1,33 @@
+steps:
+  # 1. Construir la imagen del contenedor
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/frontend-dashboard-infancia:$COMMIT_SHA', '.']
+
+  # 2. Subir la imagen a Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/frontend-dashboard-infancia:$COMMIT_SHA']
+
+  # 3. Desplegar en Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'frontend-dashboard-infancia' # Nombre del servicio en Cloud Run
+      - '--image'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/frontend-dashboard-infancia:$COMMIT_SHA'
+      - '--region'
+      - 'us-central1' # Región (ajustar si es necesario)
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated' # Permitir acceso público
+      - '--service-account'
+      - '753170017712-compute@developer.gserviceaccount.com' # Cuenta de servicio específica
+
+# Configuración de logging (requerido cuando se usa service_account personalizada)
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+# Imágenes que se guardarán
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/frontend-dashboard-infancia:$COMMIT_SHA'
