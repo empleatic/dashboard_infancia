@@ -1,11 +1,11 @@
 steps:
   # 1. Construir la imagen del contenedor
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/frontend-dashboard-infancia:$COMMIT_SHA', '.']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/dashboard-inclusion-social:$COMMIT_SHA', '.']
 
   # 2. Subir la imagen a Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/frontend-dashboard-infancia:$COMMIT_SHA']
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/dashboard-inclusion-social:$COMMIT_SHA']
 
   # 3. Desplegar en Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -13,21 +13,21 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'frontend-dashboard-infancia' # Nombre del servicio en Cloud Run
+      - 'dashboard-inclusion-social' # Este será el nombre del servicio y parte de la URL
       - '--image'
-      - 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/frontend-dashboard-infancia:$COMMIT_SHA'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/dashboard-inclusion-social:$COMMIT_SHA'
       - '--region'
-      - 'us-central1' # Región (ajustar si es necesario)
+      - 'us-central1'
       - '--platform'
       - 'managed'
-      - '--allow-unauthenticated' # Permitir acceso público
+      - '--allow-unauthenticated'
       - '--service-account'
-      - '753170017712-compute@developer.gserviceaccount.com' # Cuenta de servicio específica
+      - '753170017712-compute@developer.gserviceaccount.com'
 
-# Configuración de logging (requerido cuando se usa service_account personalizada)
+# Configuración de logging
 options:
   logging: CLOUD_LOGGING_ONLY
 
 # Imágenes que se guardarán
 images:
-  - 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/frontend-dashboard-infancia:$COMMIT_SHA'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/frontend-dashboard/dashboard-inclusion-social:$COMMIT_SHA'
